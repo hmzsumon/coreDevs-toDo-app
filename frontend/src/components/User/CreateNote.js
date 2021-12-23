@@ -8,13 +8,13 @@ import { clearErrors, createNote, getAllNotes } from '../../actions/noteAction';
 import { NEW_NOTE_RESET } from '../../constants/noteConstants';
 import { useHistory } from 'react-router-dom';
 
-const CreateNote = ({ userPackage, notes }) => {
+const CreateNote = () => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
 	let history = useHistory();
 
-	const { noteLimit = 10 } = userPackage;
+	// const { noteLimit = 10 } = userPackage;
 
 	const { loading, error, success } = useSelector((state) => state.newNote);
 
@@ -114,7 +114,7 @@ const CreateNote = ({ userPackage, notes }) => {
 							<button
 								type='submit'
 								className='relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-500 border border-transparent rounded-md group hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-								disabled={noteLimit === notes.length}
+								// disabled={noteLimit === notes.length}
 							>
 								{loading ? (
 									<div className='w-6 h-6 border-4 border-white border-dashed rounded-full spin-slow animate-spin-slow'></div>
