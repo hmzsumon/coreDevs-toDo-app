@@ -22,11 +22,6 @@ const Checkout = () => {
 		(state) => state.subscriptionDetails
 	);
 
-	const [subPackage, setSubPackage] = useState({
-		noteLimit: 0,
-		category: '',
-	});
-
 	useEffect(() => {
 		if (error) {
 			console.log(error);
@@ -38,11 +33,8 @@ const Checkout = () => {
 
 	useEffect(() => {
 		if (subscription) {
-			setSubPackage({
-				noteLimit: subscription.noteLimit,
-				category: subscription.category,
-			});
-			localStorage.setItem('subPackage', JSON.stringify(subPackage));
+			let noteLimit = subscription.noteLimit;
+			localStorage.setItem('noteLimit', noteLimit);
 		}
 	}, [subscription]);
 

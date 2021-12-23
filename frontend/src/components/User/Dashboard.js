@@ -11,14 +11,15 @@ import Loader from '../layout/Loader/Loader';
 const Dashboard = () => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
-	const [userPack, setUserPack] = useState([]);
+	const [userPackLimit, setUserPackLimit] = useState(0);
+
 	useEffect(() => {
-		let userPackage = localStorage.getItem('subPackage');
+		let userPackage = localStorage.getItem('noteLimit');
 		userPackage = JSON.parse(userPackage);
-		setUserPack(userPackage);
+		setUserPackLimit(userPackage);
 	}, []);
 
-	// console.log(userPackage);
+	// console.log(userPackLimit);
 
 	const { loading, notes } = useSelector((state) => state.notes);
 
@@ -52,7 +53,7 @@ const Dashboard = () => {
 							<NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} />
 						</div>
 						<div className='col-span-1'>
-							<CreateNote userPackage={userPack} notes={notes} />
+							<CreateNote userPackLimit={userPackLimit} notes={notes} />
 						</div>
 					</div>
 				</div>

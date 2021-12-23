@@ -8,13 +8,13 @@ import { clearErrors, createNote, getAllNotes } from '../../actions/noteAction';
 import { NEW_NOTE_RESET } from '../../constants/noteConstants';
 import { useHistory } from 'react-router-dom';
 
-const CreateNote = () => {
+const CreateNote = ({ userPackLimit, notes }) => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
 	let history = useHistory();
 
-	// const { noteLimit = 10 } = userPackage;
+	console.log(userPackLimit);
 
 	const { loading, error, success } = useSelector((state) => state.newNote);
 
@@ -59,10 +59,10 @@ const CreateNote = () => {
 						<h2 className='text-2xl font-extrabold text-center text-gray-800 md:text-3xl'>
 							Create New Note
 						</h2>
-						{/* <div>
-							<p>Your Not Limit: {noteLimit}</p>
-							<p> remaining {noteLimit - notes.length}</p>
-						</div> */}
+						<div>
+							<p>Your Not Limit: {userPackLimit}</p>
+							<p> remaining {userPackLimit - notes.length}</p>
+						</div>
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={createNoteSubmitHandler}>
 						<input type='hidden' name='remember' defaultValue='true' />
@@ -114,7 +114,7 @@ const CreateNote = () => {
 							<button
 								type='submit'
 								className='relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-500 border border-transparent rounded-md group hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-								// disabled={noteLimit === notes.length}
+								disabled={userPackLimit === notes.length}
 							>
 								{loading ? (
 									<div className='w-6 h-6 border-4 border-white border-dashed rounded-full spin-slow animate-spin-slow'></div>
