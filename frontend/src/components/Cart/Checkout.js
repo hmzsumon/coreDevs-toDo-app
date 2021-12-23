@@ -26,8 +26,11 @@ const Checkout = () => {
 			console.log(error);
 			dispatch(clearErrors());
 		}
+		if (subscription.category === 'Free') {
+			history.push('/dashboard');
+		}
 		dispatch(getSubscriptionDetails(subscriptionId));
-	}, [dispatch, error, subscriptionId]);
+	}, [dispatch, error, subscriptionId, history, subscription]);
 	return (
 		<>
 			<Navbar />
