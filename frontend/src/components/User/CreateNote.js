@@ -59,10 +59,10 @@ const CreateNote = ({ userPackage, notes }) => {
 						<h2 className='text-2xl font-extrabold text-center text-gray-800 md:text-3xl'>
 							Create New Note
 						</h2>
-						<div>
+						{/* <div>
 							<p>Your Not Limit: {noteLimit}</p>
 							<p> remaining {noteLimit - notes.length}</p>
-						</div>
+						</div> */}
 					</div>
 					<form className='mt-8 space-y-6' onSubmit={createNoteSubmitHandler}>
 						<input type='hidden' name='remember' defaultValue='true' />
