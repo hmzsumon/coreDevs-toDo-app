@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Header/Navbar';
 import { useRouteMatch, useHistory } from 'react-router-dom';
@@ -21,16 +22,30 @@ const Checkout = () => {
 		(state) => state.subscriptionDetails
 	);
 
+	const [subPackage, setSubPackage] = useState({
+		noteLimit: 0,
+		category: '',
+	});
+
 	useEffect(() => {
 		if (error) {
 			console.log(error);
 			dispatch(clearErrors());
 		}
-		if (subscription.category === 'Free') {
-			history.push('/dashboard');
-		}
+
 		dispatch(getSubscriptionDetails(subscriptionId));
-	}, [dispatch, error, subscriptionId, history, subscription]);
+	}, [dispatch, error, subscriptionId]);
+
+	useEffect(() => {
+		if (subscription) {
+			setSubPackage({
+				noteLimit: subscription.noteLimit,
+				category: subscription.category,
+			});
+			localStorage.setItem('subPackage', JSON.stringify(subPackage));
+		}
+	}, [subscription]);
+
 	return (
 		<>
 			<Navbar />
@@ -57,10 +72,18 @@ const Checkout = () => {
 									</p>
 								</div>
 							</div>
-							<PayPalButton
-								totalAmount={subscription.price}
-								history={history}
-							/>
+							{subscription.category === 'Free' ? (
+								<Link to='/dashboard'>
+									<button className='py-2 font-medium text-gray-800 bg-green-500 rounded-md text-md px-7'>
+										Click Me & Go to Dashboard
+									</button>
+								</Link>
+							) : (
+								<PayPalButton
+									totalAmount={subscription.price}
+									history={history}
+								/>
+							)}
 						</div>
 					)}
 					<Link to='/' className='mt-10 text-blue-500'>
